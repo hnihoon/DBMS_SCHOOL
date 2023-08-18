@@ -1,75 +1,75 @@
-[sungjuk í…Œì´ë¸” ì‚­ì œ]
+[sungjuk Å×ÀÌºí »èÁ¦]
 drop table sungjuk;
 
-[sungjuk í…Œì´ë¸” ìƒì„±]
+[sungjuk Å×ÀÌºí »ı¼º]
 create table sungjuk (
-    uname varchar(50) not null  --ë¹ˆê°’ì„ í—ˆìš©í•˜ì§€ ì•ŠìŒ(ë°˜ë“œì‹œ ì…ë ¥í•˜ë¼)
-                                --ì˜ë¬¸ì 50ê¸€ì ì´ë‚´ë¡œ ì…ë ¥
-                                --í•œê¸€ 16ê¸€ì ì´ë‚´ë¡œ ì…ë ¥
+    uname varchar(50) not null  --ºó°ªÀ» Çã¿ëÇÏÁö ¾ÊÀ½(¹İµå½Ã ÀÔ·ÂÇÏ¶ó)
+                                --¿µ¹®ÀÚ 50±ÛÀÚ ÀÌ³»·Î ÀÔ·Â
+                                --ÇÑ±Û 16±ÛÀÚ ÀÌ³»·Î ÀÔ·Â
     ,kor int    not null
     ,eng int    not null
     ,mat int    not null
-    ,tot int    null        --ë¹ˆê°’ í—ˆìš©
-    ,aver int               --null ìƒëµê°€ëŠ¥
+    ,tot int    null        --ºó°ª Çã¿ë
+    ,aver int               --null »ı·«°¡´É
 );
 
-[ìƒ˜í”Œ ë°ì´í„° í–‰ ì¶”ê°€]
-insert into sungjuk(uname,kor,eng,mat) values ('í™ê¸¸ë™', 70, 85, 100);
-insert into sungjuk(uname,kor,eng,mat) values ('ë¬´ê¶í™”',30,30,40);
-insert into sungjuk(uname,kor,eng,mat) values ('ì§„ë‹¬ë˜',90,90,20);
-insert into sungjuk(uname,kor,eng,mat) values ('ê°œë‚˜ë¦¬',100,60,30);
-insert into sungjuk(uname,kor,eng,mat) values ('ë¼ì¼ë½',30,80,40);
-insert into sungjuk(uname,kor,eng,mat) values ('ë´‰ì„ í™”',80,80,20);
-insert into sungjuk(uname,kor,eng,mat) values ('ëŒ€í•œë¯¼êµ­',10,65,35);
-insert into sungjuk(uname,kor,eng,mat) values ('í•´ë°”ë¼ê¸°',30,80,40);
-insert into sungjuk(uname,kor,eng,mat) values ('ë‚˜íŒ”ê½ƒ',30,80,20);
-insert into sungjuk(uname,kor,eng,mat) values ('ëŒ€í•œë¯¼êµ­',100,100,100);
+[»ùÇÃ µ¥ÀÌÅÍ Çà Ãß°¡]
+insert into sungjuk(uname,kor,eng,mat) values ('È«±æµ¿', 70, 85, 100);
+insert into sungjuk(uname,kor,eng,mat) values ('¹«±ÃÈ­',30,30,40);
+insert into sungjuk(uname,kor,eng,mat) values ('Áø´Ş·¡',90,90,20);
+insert into sungjuk(uname,kor,eng,mat) values ('°³³ª¸®',100,60,30);
+insert into sungjuk(uname,kor,eng,mat) values ('¶óÀÏ¶ô',30,80,40);
+insert into sungjuk(uname,kor,eng,mat) values ('ºÀ¼±È­',80,80,20);
+insert into sungjuk(uname,kor,eng,mat) values ('´ëÇÑ¹Î±¹',10,65,35);
+insert into sungjuk(uname,kor,eng,mat) values ('ÇØ¹Ù¶ó±â',30,80,40);
+insert into sungjuk(uname,kor,eng,mat) values ('³ªÆÈ²É',30,80,20);
+insert into sungjuk(uname,kor,eng,mat) values ('´ëÇÑ¹Î±¹',100,100,100);
 
-[ì „ì²´ ë ˆì½”ë“œ ì¡°íšŒ]
+[ÀüÃ¼ ·¹ÄÚµå Á¶È¸]
 select uname, kor, eng, mat, tot, aver
 from sungjuk;
 
-[ì „ì²´ í–‰ ê°¯ìˆ˜ ì¡°íšŒ]
+[ÀüÃ¼ Çà °¹¼ö Á¶È¸]
 select count(*) from sungjuk;
 
-[select ì¡°íšŒ ë° ê²€ìƒ‰]
+[select Á¶È¸ ¹× °Ë»ö]
 select kor, eng, mat from sungjuk;
 select tot, aver from sungjuk;
-select * from sungjuk;  --å ì™ì˜™ì²´ å ì™ì˜™å ï¿½ ì¹¼å ì™ì˜™ å ì™ì˜™íšŒ
+select * from sungjuk;  --ï¿½ï¿½Ã¼ ï¿½ï¿½ï¿? Ä®ï¿½ï¿½ ï¿½ï¿½È¸
 
-[as] --ì¹¼ëŸ¼ëª…ì„ ì„ì‹œ ë³€ê²½
+[as] --Ä®·³¸íÀ» ÀÓ½Ã º¯°æ
 select kor as korea, eng as english, mat as mathe
 from sungjuk;
 
---as ìƒëµ ê°€ëŠ¥
+--as »ı·« °¡´É
 select kor korea, eng english, mat mathe
 from sungjuk;
 
---ì„ì‹œ í•œê¸€ ì¹¼ëŸ¼ëª…ì€ ì¼ì‹œì ìœ¼ë¡œ ë¶„ì„í•´ì•¼ í•˜ëŠ” ê²½ìš°ë§Œ ì¶”ì²œ!!
-select uname as å ì‹±ëªŒì˜™, kor as å ì™ì˜™å ì™ì˜™, eng as å ì™ì˜™å ì™ì˜™, mat as å ì™ì˜™å ì™ì˜™, tot å ì™ì˜™å ì™ì˜™, aver å ì™ì˜™å ï¿½
+--ÀÓ½Ã ÇÑ±Û Ä®·³¸íÀº ÀÏ½ÃÀûÀ¸·Î ºĞ¼®ÇØ¾ß ÇÏ´Â °æ¿ì¸¸ ÃßÃµ!!
+select uname as È«±æµ¿, kor as ±¹¾î Á¡¼ö, eng as ¿µ¾î Á¡¼ö, mat as ¼öÇĞ, tot ÃÑÁ¡, aver Æò±Õ
 from sungjuk;
 
---ì¹¼ëŸ¼ì˜ ìˆœì„œëŠ” ì˜ë¯¸ê°€ ì—†ë‹¤
+--Ä®·³ÀÇ ¼ø¼­´Â ÀÇ¹Ì°¡ ¾ø´Ù
 select uname, kor, eng, mat from sungjuk;
 select kor, mat, eng from sungjuk;
 
-[count í•¨ìˆ˜] - í–‰ ê°¯ìˆ˜ ì¡°íšŒ
+[count ÇÔ¼ö] - Çà °¹¼ö Á¶È¸
 select count(uname) from sungjuk;   --10
 select count(kor) from sungjuk;     --10
 select count(eng) from sungjuk;     --10
 select count(mat) from sungjuk;     --10
 
-select * from sungjuk; --ì „ì²´ í–‰ ì¡°íšŒ
+select * from sungjuk; --ÀüÃ¼ Çà Á¶È¸
 
---nullê°’ì€ ì¹´ìš´íŠ¸í•˜ì§€ ì•ŠëŠ”ë‹¤.
+--null°ªÀº Ä«¿îÆ®ÇÏÁö ¾Ê´Â´Ù.
 select count(tot) from sungjuk;     --0
 select count(aver) from sungjuk;    --0
 
 select count(eng) from sungjuk;
 select count(eng) as cnt_eng from sungjuk;
-select count(mat) as ìˆ˜í•™ê°¯ìˆ˜ from sungjuk; --ì„ì‹œ ì¹¼ëŸ¼ëª…ì€ í•œê¸€ ê°€ëŠ¥
+select count(mat) as ¼öÇĞ°¹¼ö from sungjuk; --ÀÓ½Ã Ä®·³¸íÀº ÇÑ±Û °¡´É
 
---sungjuk í…Œì´ë¸”ì˜ ì „ì²´ í–‰ì˜ ê°¯ìˆ˜
+--sungjuk Å×ÀÌºíÀÇ ÀüÃ¼ ÇàÀÇ °¹¼ö
 select count(*) from sungjuk;
-select count(*) as ì „ì²´í–‰ê°¯ìˆ˜ from sungjuk;
-select count(*) ì „ì²´í–‰ê°¯ìˆ˜ from sungjuk;
+select count(*) as ÀüÃ¼Çà°¹¼ö from sungjuk;
+select count(*) ÀüÃ¼Çà°¹¼ö from sungjuk;
