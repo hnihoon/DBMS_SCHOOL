@@ -67,7 +67,7 @@ select count(aver) from sungjuk;    --0
 
 select count(eng) from sungjuk;
 select count(eng) as cnt_eng from sungjuk;
-select count(mat) as 수학갯수 from sungjuk; --임시 칼럼명은 한글 가능
+select count(mat) as 수학갯수 from sungjuk;  --임시 칼럼명은 한글 가능
 
 --sungjuk 테이블의 전체 행의 갯수
 select count(*) from sungjuk;
