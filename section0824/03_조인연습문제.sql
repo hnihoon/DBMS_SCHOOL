@@ -145,6 +145,35 @@ where hakno not in (select hakno from tb_sugang group by hakno);
         g1001	p004	Python
         g1001	p005	AJAX
 
+--1) 학번 g1001 수강신청 목록
+select * from tb_sugang where hakno ='g1001';
+
+--2) 수강테이블 + 과목테이블 조인
+
+select su.hakno, su.gcode, gw.gname,gw.gcode
+from tb_sugang su inner join tb_gwamok gw
+on su.gcode = gw.gcode;
+
+--3) 학번 g1001이 신청한 정보만 조회하기
+select su.hakno, su.gcode, gw.gname,gw.gcode
+from tb_sugang su inner join tb_gwamok gw
+on su.gcode = gw.gcode
+where su.hakno= 'g1001';
+
+--4) 과목코드 정렬하기
+select su.hakno, su.gcode, gw.gname,gw.gcode
+from tb_sugang su inner join tb_gwamok gw
+on su.gcode = gw.gcode
+where su.hakno= 'g1001'
+order by su.gcode;
+
+--5) 중복되는 칼럼에서 테이블 별점 생략하기
+select hakno, su.gcode,gw.gcode,gname
+from tb_sugang su inner join tb_gwamok gw
+on su.gcode = gw.gcode
+where su.hakno= 'g1001'
+order by su.gcode;
+
 
 문6) 학번별 수강신청과목의 총학점을 학번별순으로 조회하시오
         g1001	홍길동	14학점
@@ -152,14 +181,88 @@ where hakno not in (select hakno from tb_sugang group by hakno);
         g1005	진달래	12학점
         g1006	개나리	3학점
 
+--1) 수강테이블에서 학번별로 조회
+select hakno, gcode from tb_sugang order by hakno;
+
+--2)수강테이블에 과목코드가 일치하는 학점을 과목테이블에서 가져와서 붙이기
+select su.hakno, gw.gcode, gw.ghakjum
+from tb_sugang su inner join tb_gwamok gw
+on su.gcode = gw.gcode;
+
+--3) 2)의 결과를 AA테이블로 만들고, 학번별로 그룹화한 후, 학점의 합계 구하기
+select hakno, sum(AA.ghakjum) as hap
+from(
+select su.hakno, su.gcode, gw.ghakjum
+from tb_sugang su inner join tb_gwamok gw
+on su.gcode = gw.gcode
+)AA
+group by AA.hakno;
+
+--4) 3)의 결과를 BB테이블로 만들고, 학번을 기준으로 학생테이블에서 이를 가져와서 붙이기
+select bb.hakno, st.uname, concat(bb.hap, '학점')
+from(
+select hakno, sum(AA.ghakjum) as hap
+from(
+select su.hakno, su.gcode, gw.ghakjum
+from tb_sugang su inner join tb_gwamok gw
+on su.gcode = gw.gcode
+)AA
+group by AA.hakno
+)BB inner join tb_student st
+on bb.hakno = st.hakno;
+
+문6)의 또다른 방법
+--1) 수강테이블 + 학생테이블 + 과목테이블 - 3개 테이블 한꺼번에 조인
+select su.hakno, su.gcode, st.uname, gw.ghakjum
+from tb_sugang su inner join tb_student st
+on su.hakno = st.hakno inner join tb_gwamok gw
+on su.gcode = gw.gcode
+order by su.hakno;
+
+--2) 1차그룹(학번), 2차그룹(이름)으로 그룹화하고, 총학점 구하기
+select su.hakno, st.uname, sum(gw.ghakjum) || '학점' as hap
+from tb_sugang su inner join tb_student st
+on su.hakno = st.hakno inner join tb_gwamok gw
+on su.gcode = gw.gcode
+group by su.hakno, st.uname;
 
 문7) 지역별로 수강신청 인원수, 지역을 조회하시오
         서울 2명
         제주 2명
 
+--1) 수강테이블 조회
+select * from tb_sugang order by hakno;
+
+--2) 수강 신청한 학생들의 명단 조회 (학번)
+select hakno from tb_sugang group by hakno;
 
 
+--3) 수강신청한 학번(AA)들의 주소를 학생테이블에서 가져오기
+select AA.hakno, st.address
+from (
+select hakno from tb_sugang group by hakno
+)AA inner join tb_student st
+on AA.hakno = st.hakno;
 
+--4 3)의 결과를 BB테이블로 만든 후, 주소별 갯수 조회
+select BB.address,count(*)
+from(
+select AA.hakno, st.address
+from (
+select hakno from tb_sugang group by hakno
+)AA inner join tb_student st
+on AA.hakno = st.hakno
+) BB
+group by BB.address;
 
-
+--5) 4)의 결과에서 칼럼명 부여, 테이블 별칭 제거
+select address,concat(count(*),'명') as cnt
+from(
+select AA.hakno, st.address
+from (
+select hakno from tb_sugang group by hakno
+)AA inner join tb_student st
+on AA.hakno = st.hakno
+) 
+group by address;
 
