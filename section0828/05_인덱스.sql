@@ -95,3 +95,16 @@ select * from emp4 where no=466;            --FULL scan, COST 900
 select * from emp4 where sal>300;           --FULL scan, COST 902
 
 --2) ÀÎµ¦½º¸¦ »ç¿ëÇÑ °æ¿ì
+
+--nameÄ®·³À» ±âÁØÀ¸·Î ÀÎµ¦½º »ý¼º
+create index emp4_name_idx on emp4(name);
+
+select * from emp4 where name='kim466';     --FANGE SCAN, COST 3
+
+--nameÄ®·³°ú salÄ®·³À» ±âÁØÀ¸·Î ÀÎµ¦½º »ý¼º
+create index emp4_name_sal_idx on emp4(name, sal);
+select * from emp4 where name='kim466' and sal>200;   --FANGE SCAN, COST 3
+
+--ÀÎµ¦½º µ¥ÀÌÅÍ »çÀü
+select * from user_indexes;
+select * from user_indexes where index_name like 'EMP4%';

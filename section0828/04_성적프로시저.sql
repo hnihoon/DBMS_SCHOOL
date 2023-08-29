@@ -67,3 +67,29 @@ end;
 execute sungjukDelete(21);
 
 select * from sungjuk;
+////////////////////////////////////////////////////////////////////////////////
+4)전체목록 (Read)
+create or replace procedure sungjukList
+(
+    v_cursor out sys_refcursor  --out 출력매개변수
+)
+is
+    rec sungjuk%rowtype;        --sungjuk테이블의 한행의 타입과 동일
+begin
+    open v_cursor for select * from sungjuk order by sno desc;
+    
+    loop
+        fetch v_cursor into rec;
+        exit when v_cursor%NOTFOUND;
+        dbms_output.put_line(rec.uname||' '||rec.kor||' '||rec.eng||' '||rec.mat
+        ||' '||rec.tot||' '||rec.aver||' '||rec.addr||' '||rec.wdate);
+    end loop;
+
+        close v_cursor;
+end;
+
+var v_cursor refcursor;     --참조 커서 변수 선언
+execute sungjukList(:v_cursor);
+
+--콘솔창 출력하기 위한 사전 준비작업
+set serveroutput on;
